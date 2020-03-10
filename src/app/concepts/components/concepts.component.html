@@ -1,0 +1,121 @@
+<div class="container-fluid">
+  <p>Data received from Child Comp: {{dataReceivedFromChildComp}}</p>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active"  data-toggle="tab" href="#basic-databinding"
+        role="tab" aria-controls="basic-databinding" aria-selected="true">Basic Data Binding</a>
+      <a class="nav-item nav-link" data-toggle="tab" href="#cpb-tab" role="tab" aria-controls="cpb-tab"
+        aria-selected="false">Custom Prop Binding</a>
+      <a class="nav-item nav-link" data-toggle="tab" href="#ceb-tab" role="tab" aria-controls="ceb-tab"
+        aria-selected="false">Child to Parent Comp Communication</a>
+      <a class="nav-item nav-link" data-toggle="tab" 
+        href="#directives-tab" role="tab" aria-controls="directives-tab"
+        aria-selected="false">Directives</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+
+    <div class="tab-pane fade show active" id="basic-databinding" role="tabpanel"
+      aria-labelledby="basic-databinding-tab">
+      <h2>Basic Data Binding</h2>
+      <h4>String Interpolation</h4>
+      <p>{{appName}}</p>
+      <p>{{devExp}}</p>
+      <p>{{skillsList[2]}}</p>
+      <p title="{{appName}}">Mouseover to see app name...</p>
+      <input type="text" value="{{appName}}">
+
+      <hr>
+      <h4>Property Binding</h4>
+      <p [title]='companyName'>Mouse over to see company name</p>
+      <input type="text" [value]='companyName'>
+
+      <div class="copyright">
+        This will work
+      </div>
+
+      <div class="alert" 
+      [ngClass]="{ 'alert-success': isLoggedIn, 'alert-danger': !isLoggedIn }">
+        testing .. will it work?
+      </div>
+      <!-- todo: ngStyle -->
+      <h4>Event Binding</h4>
+      <button type="button" 
+      onclick="onClickMeHandler()">Click me -- will not work -- open console</button>
+
+      <br>
+      <button type="button" 
+      (click)="onClickMeHandler($event)">Click me</button>
+
+      <hr>
+      <h4>Two Way Binding</h4>
+      <p>{{courseName}}</p>
+      <input type="text" [value]='courseName'>
+      <br>
+      <input type="text" [(ngModel)]='courseName'>
+
+    </div>
+
+    <div class="tab-pane fade" id="cpb-tab" role="tabpanel" aria-labelledby="cpb-tab-tab">
+      <h2>Custom Property Binding -- Parent to Child Comp Communication</h2>
+      <app-cpb></app-cpb>
+      <app-cpb [age]='10'></app-cpb>
+      <app-cpb [age]='30'></app-cpb>
+      <app-cpb [age]='getAge()'></app-cpb>
+
+    </div>
+
+    <div class="tab-pane fade" id="ceb-tab" role="tabpanel" aria-labelledby="ceb-tab-tab">
+      <h2>Child to Parent Comp Communication</h2>
+      <!-- step 4 of custom event binding: attaching event handler -->
+      <app-ceb (profileLoaded)='profileLoadedHandler($event)'></app-ceb>
+      
+
+    </div>
+
+    <div class="tab-pane fade" id="directives-tab" role="tabpanel"
+      aria-labelledby="directives-tab">
+      <h2>Directives</h2>
+      <pre>
+        Directives
+        ----
+        Special instructions to the DOM 
+        1. Attribute Directives 
+              routerLink , ngClass, ngStyle, 
+        2. Structural Directives 
+            impact the structure of the page 
+            *ngIf, *ngFor, ngSwitch 
+      </pre>
+      <h4>Structural Directives</h4>
+      <h5>*ngIf</h5>
+
+      <div class="alert alert-success" *ngIf="isLoggedIn; else NotAuthBox">
+        Wow! you are authenticated!
+      </div>
+
+      <ng-template #NotAuthBox>
+        <div class="alert alert-danger">
+          pls login to access premium features...
+        </div>
+      </ng-template>
+
+      <h5>*ngFor</h5>
+      <ul>
+        <li *ngFor='let skill of skillsList'>{{skill}}</li>
+      </ul>
+      <!-- todo: find index in the above loop -->
+      <!-- todo: ngSwitch -->
+
+      <hr>
+      <h4>Custom Attribute Directive</h4>
+      <div appColorizer>
+        checking attribute directive -- colorizer 
+        <button>Click me</button>
+      </div>
+
+
+    </div>
+
+
+  </div>
+</div>
