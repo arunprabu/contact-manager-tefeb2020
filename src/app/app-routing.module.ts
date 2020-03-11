@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ConceptsComponent } from './concepts/components/concepts.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 // config the routes
 const routes: Routes = [
